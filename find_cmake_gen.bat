@@ -12,7 +12,11 @@ shift
 set version=%1
 shift
 
-set error_message=cmake .. %1 %2 %3 %4 %5 %6 %7 %8 -DNAME=%name% -DVERSION=%version%
+set framework_version=%1
+shift
+
+set error_message=cmake .. %1 %2 %3 %4 %5 %6 %7 %8 ^
+	-DNAME=%name% -DVERSION=%version% -DFRAMEWORK_VERSION=%framework_version%
 !error_message!
 
 if NOT '!ERRORLEVEL!'=='0' goto fail

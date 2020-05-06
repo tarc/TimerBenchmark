@@ -15,6 +15,8 @@ set project_name=timerbenchmark
 
 set version=0.1.0
 
+set framework_version=v4.6.2
+
 set solution_file_name=%project_name%.sln
 
 if "%1"=="" (
@@ -42,7 +44,7 @@ if NOT '!ERRORLEVEL!'=='0' goto fail
 
 pushd %gen_dir%
 
-set error_message=call %script_dir%find_cmake_gen.bat %project_name% %version% %gen_arguments%
+set error_message=call %script_dir%find_cmake_gen.bat %project_name% %version% %framework_version% %gen_arguments%
 !error_message!
 if NOT '!ERRORLEVEL!'=='0' goto fail
 
