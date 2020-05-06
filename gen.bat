@@ -13,6 +13,8 @@ set gen_dir=%script_dir%build
 
 set project_name=timerbenchmark
 
+set version=0.1.0
+
 set solution_file_name=%project_name%.sln
 
 if "%1"=="" (
@@ -21,6 +23,10 @@ if "%1"=="" (
 	)
 )
 
+shift
+
+
+set gen_arguments=%1 %2 %3 %4 %5 %6 %7 %8
 
 if EXIST %gen_dir% (
 	set error_message=rmdir /s/q %gen_dir%
@@ -33,10 +39,10 @@ set error_message=mkdir %gen_dir%
 !error_message!
 if NOT '!ERRORLEVEL!'=='0' goto fail
 
+
 pushd %gen_dir%
 
-
-set error_message=call %script_dir%find_cmake_gen.bat %project_name%
+set error_message=call %script_dir%find_cmake_gen.bat %project_name% %version% %gen_arguments%
 !error_message!
 if NOT '!ERRORLEVEL!'=='0' goto fail
 
