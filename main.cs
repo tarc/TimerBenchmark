@@ -22,57 +22,59 @@ namespace timerbenchmark
 
         public static void RunTests()
         {
-            const int loopEnd = 1000000;
+            const long loopEnd = 1000000000;
             Stopwatch watch = new Stopwatch();
 
             Console.WriteLine();
             Console.WriteLine("Reference Loop (NOP) Iterations: " + loopEnd);
             watch.Reset();
             watch.Start();
-            for (int i = 0; i < loopEnd; ++i)
+            for (long i = 0; i < loopEnd; ++i)
             {
                 DummyValue += i;
             }
             watch.Stop();
-            Console.WriteLine("  Reference Loop (NOP) Elapsed Time (ms): " + 
-                        ((double)watch.ElapsedTicks / Stopwatch.Frequency * 1000).ToString());
+            Console.WriteLine("  Reference Loop (NOP) Elapsed Time (ns): " +
+                ( (double) watch.ElapsedTicks * 1000000000 / ( Stopwatch.Frequency * loopEnd ) ).ToString());
 
 
             Console.WriteLine();
             Console.WriteLine("Query Environment.TickCount");
             watch.Reset();
             watch.Start();
-            for (int i = 0; i < loopEnd; ++i)
+            for (long i = 0; i < loopEnd; ++i)
             {
                 DummyValue += Environment.TickCount;
             }
             watch.Stop();
-            Console.WriteLine("  Query Environment.TickCount Elapsed Time (ms): " + 
-                           ((double)watch.ElapsedTicks / Stopwatch.Frequency * 1000).ToString());
+            Console.WriteLine("  Query Environment.TickCount Elapsed Time (ns): " +
+                ( (double) watch.ElapsedTicks * 1000000000 / ( Stopwatch.Frequency * loopEnd ) ).ToString());
 
             Console.WriteLine();
             Console.WriteLine("Query DateTime.Now.Ticks");
             watch.Reset();
             watch.Start();
-            for (int i = 0; i < loopEnd; ++i)
+            for (long i = 0; i < 1000000; ++i)
             {
                 DummyValue += DateTime.Now.Ticks;
             }
             watch.Stop();
-            Console.WriteLine("  Query DateTime.Now.Ticks Elapsed Time (ms): " + 
-                      ((double)watch.ElapsedTicks / Stopwatch.Frequency * 1000).ToString());
+            Console.WriteLine("  Query DateTime.Now.Ticks Elapsed Time (ns): " +
+                ( (double) watch.ElapsedTicks * 1000000000 / ( Stopwatch.Frequency * 1000000 ) ).ToString());
 
             Console.WriteLine();
             Console.WriteLine("Query Stopwatch.ElapsedTicks");
             watch.Reset();
             watch.Start();
-            for (int i = 0; i < loopEnd; ++i)
+            for (long i = 0; i < 1000000; ++i)
             {
                 DummyValue += watch.ElapsedTicks;
             }
             watch.Stop();
-            Console.WriteLine("  Query Stopwatch.ElapsedTicks Elapsed Time (ms): " + 
-                  ((double)watch.ElapsedTicks / Stopwatch.Frequency * 1000).ToString());
+            Console.WriteLine("  Query Stopwatch.ElapsedTicks Elapsed Time (ns): " +
+                ( (double) watch.ElapsedTicks * 1000000000 / ( Stopwatch.Frequency * 1000000 ) ).ToString());
+
+            Console.WriteLine($"\n\nDummyValue: {DummyValue}");
         }        
     }
 }
